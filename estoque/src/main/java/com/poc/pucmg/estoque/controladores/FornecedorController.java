@@ -2,6 +2,7 @@ package com.poc.pucmg.estoque.controladores;
 
 import com.poc.pucmg.estoque.modelo.Fornecedor;
 import com.poc.pucmg.estoque.modelo.Produto;
+import com.poc.pucmg.estoque.servicos.FornecedorService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
