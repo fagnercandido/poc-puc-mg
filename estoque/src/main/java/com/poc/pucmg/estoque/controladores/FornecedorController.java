@@ -23,4 +23,10 @@ public class FornecedorController {
         return fornecedorService.salvar(fornecedor);
     }
 
+    @RequestMapping(value = "/fornecedor", method = RequestMethod.PUT, produces = "application/json", consumes = "application/json")
+    @ResponseBody
+    public Fornecedor atualizar(@RequestBody Fornecedor fornecedor) {
+        return fornecedorService.atualizar(fornecedor);
+    }
+
 }

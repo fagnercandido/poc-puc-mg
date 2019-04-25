@@ -30,4 +30,10 @@ public class EstoqueController {
         return estoqueService.salvar(produto);
     }
 
+    @RequestMapping(value = "/estoque/", method = RequestMethod.PUT, produces = "application/json", consumes = "application/json")
+    @ResponseBody
+    public Produto atualizar(@RequestBody List<Produto> produtos) {
+        return estoqueService.atualizar(produtos);
+    }
+
 }

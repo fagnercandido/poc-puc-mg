@@ -11,8 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "produto")
 public class Produto {
@@ -28,9 +26,8 @@ public class Produto {
 
     private BigDecimal valor;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "fornecedor_id", nullable = false)
-    @JsonIgnore
     private Fornecedor fornecedor;
 
     public Long getId() {
