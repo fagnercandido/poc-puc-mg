@@ -19,7 +19,7 @@ public class FornecedorController {
 
     @RequestMapping(value = "/fornecedor", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     @ResponseBody
-    public Produto salvar(@RequestBody Fornecedor fornecedor) {
+    public Fornecedor salvar(@RequestBody Fornecedor fornecedor) {
         return fornecedorService.salvar(fornecedor);
     }
 
