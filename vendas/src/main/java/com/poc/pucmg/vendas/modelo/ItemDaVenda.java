@@ -1,4 +1,4 @@
-package com.poc.pucmg.estoque.modelo;
+package com.poc.pucmg.vendas.modelo;
 
 import java.math.BigDecimal;
 
@@ -20,13 +20,11 @@ public class ItemDaVenda {
     @SequenceGenerator(name = "item_venda_generator", sequenceName = "item_venda_sequence", initialValue = 1)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "produto_id", nullable = false)
-    private Produto produto;
+    private Long produto;
 
     private Long quantidade;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "venda_id", nullable = false)
     private Venda venda;
 
@@ -40,11 +38,11 @@ public class ItemDaVenda {
         this.id = id;
     }
 
-    public Produto getProduto() {
+    public Long getProduto() {
         return produto;
     }
 
-    public void setProduto(Produto produto) {
+    public void setProduto(Long produto) {
         this.produto = produto;
     }
 

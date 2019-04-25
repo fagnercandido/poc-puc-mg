@@ -1,7 +1,8 @@
-package com.poc.pucmg.estoque.modelo;
+package com.poc.pucmg.vendas.modelo;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -9,8 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -35,6 +34,12 @@ public class Venda {
     private BigDecimal desconto;
 
     private BigDecimal valorTotal;
+
+    public Venda(){
+        this.itensDaVenda = new LinkedList<>();
+        this.valorTotal = BigDecimal.ZERO;
+    }
+
 
     public Long getId() {
         return id;
