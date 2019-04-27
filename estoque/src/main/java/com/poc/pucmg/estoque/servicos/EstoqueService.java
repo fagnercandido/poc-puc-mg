@@ -23,7 +23,7 @@ public class EstoqueService {
         return estoqueRepository.save(produto);
     }
 
-    public Produto atualizar(List<Produto> produtos) {
+    public void atualizar(List<Produto> produtos) {
         produtos.stream().forEach(item -> {
             Optional<Produto> optionalProduto = estoqueRepository.findById(item.getId());
             if(optionalProduto.isPresent()) {
@@ -32,7 +32,6 @@ public class EstoqueService {
                 estoqueRepository.save(produto);
             }
         });
-        return null;
     }
 
     private int possuiQuantidadeEmEstoqueSuficiente(Produto item, Produto produto) {
@@ -42,5 +41,13 @@ public class EstoqueService {
         }
         return quantidade;
     }
+
+	public Produto recuperarPorIdentificador(Long id) {
+		Optional<Produto> optionalProduto = estoqueRepository.findById(id);
+		if(optionalProduto.isPresent()) {
+			return optionalProduto.get();
+		}
+		return null;
+	}
 
 }

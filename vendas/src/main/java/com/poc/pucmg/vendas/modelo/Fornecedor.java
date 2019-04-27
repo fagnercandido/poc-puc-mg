@@ -1,4 +1,4 @@
-package com.poc.pucmg.estoque.modelo;
+package com.poc.pucmg.vendas.modelo;
 
 import java.io.Serializable;
 
@@ -12,9 +12,9 @@ import javax.persistence.Table;
 @Table(name = "fornecedor")
 public class Fornecedor implements Serializable {
 
-	private static final long serialVersionUID = -1602220416008970591L;
+    private static final long serialVersionUID = -2445408832732994178L;
 
-	@Id
+    @Id
     @GeneratedValue(generator = "fornecedor_generator")
     @SequenceGenerator(name = "fornecedor_generator", sequenceName = "fornecedor_sequence", initialValue = 1)
     private Long id;

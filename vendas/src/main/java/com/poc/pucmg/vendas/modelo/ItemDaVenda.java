@@ -1,5 +1,6 @@
 package com.poc.pucmg.vendas.modelo;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Entity;
@@ -11,21 +12,28 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "item_da_venda")
-public class ItemDaVenda {
+public class ItemDaVenda implements Serializable {
+
+    private static final long serialVersionUID = 232403413897426072L;
 
     @Id
     @GeneratedValue(generator = "item_venda_generator")
     @SequenceGenerator(name = "item_venda_generator", sequenceName = "item_venda_sequence", initialValue = 1)
     private Long id;
 
-    private Long produto;
+    @ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="produto_id", nullable=false)
+    private Produto produto;
 
-    private Long quantidade;
+    private Integer quantidade;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "venda_id", nullable = false)
+    @JsonIgnore
     private Venda venda;
 
     private BigDecimal valorUnitario;
@@ -38,19 +46,19 @@ public class ItemDaVenda {
         this.id = id;
     }
 
-    public Long getProduto() {
+    public Produto getProduto() {
         return produto;
     }
 
-    public void setProduto(Long produto) {
+    public void setProduto(Produto produto) {
         this.produto = produto;
     }
 
-    public Long getQuantidade() {
+    public Integer getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(Long quantidade) {
+    public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
     }
 

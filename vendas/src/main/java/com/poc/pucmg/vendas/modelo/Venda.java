@@ -1,5 +1,6 @@
 package com.poc.pucmg.vendas.modelo;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.LinkedList;
@@ -18,7 +19,9 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "venda")
-public class Venda {
+public class Venda implements Serializable {
+
+    private static final long serialVersionUID = 5060096747864342944L;
 
     @Id
     @GeneratedValue(generator = "venda_generator")
