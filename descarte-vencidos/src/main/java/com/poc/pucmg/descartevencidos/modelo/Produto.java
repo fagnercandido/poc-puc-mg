@@ -1,4 +1,4 @@
-package com.poc.pucmg.estoque.modelo;
+package com.poc.pucmg.descartevencidos.modelo;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

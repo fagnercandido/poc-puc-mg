@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.poc.pucmg.estoque.modelo.ItemDoOrcamento;
 import com.poc.pucmg.estoque.modelo.Orcamento;
 import com.poc.pucmg.estoque.modelo.Produto;
+import com.poc.pucmg.estoque.modelo.SituacaoProduto;
 import com.poc.pucmg.estoque.modelo.TipoOrcamento;
 import com.poc.pucmg.estoque.repositorio.EstoqueRepository;
 import com.poc.pucmg.estoque.repositorio.OrcamentoRepository;
@@ -25,7 +27,8 @@ public class EstoqueService {
 	private OrcamentoRepository orcamentoRepository;
 
 	public List<Produto> recuperarTodos() {
-		return estoqueRepository.findAll();
+		List<Produto> produtos = estoqueRepository.findAll();
+		return produtos.stream().filter(produto -> isProdutoValido(produto)).collect(Collectors.toList());
 	}
 
 	public Produto salvar(Produto produto) {
@@ -54,7 +57,8 @@ public class EstoqueService {
 	public Produto recuperarPorIdentificador(Long id) {
 		Optional<Produto> optionalProduto = estoqueRepository.findById(id);
 		if (optionalProduto.isPresent()) {
-			return optionalProduto.get();
+			Produto produto = optionalProduto.get();
+			return isProdutoValido(produto) ? produto : null;
 		}
 		return null;
 	}
@@ -72,14 +76,18 @@ public class EstoqueService {
 		while (iteratorItemOrcamento.hasNext()) {
 			ItemDoOrcamento itemOrcamento = iteratorItemOrcamento.next();
 			Produto itemProduto = itemOrcamento.getProduto();
-			Optional<Produto> optionalProduto = estoqueRepository.findById(itemProduto.getId());
-			if (optionalProduto.isPresent()) {
+			Produto produto = recuperarPorIdentificador(itemProduto.getId());
+			if (isProdutoValido(produto)) {
 				itemOrcamento.setOrcamento(orcamento);
 				orcamento.getItensOrcamento().add(itemOrcamento);
 				orcamento.setValorOrcamento(calcularValorProduto(orcamento, itemOrcamento));
 			}
 		}
 		return orcamento;
+	}
+
+	private boolean isProdutoValido(Produto produto) {
+		return SituacaoProduto.ATIVO.equals(produto.getSituacaoProduto());
 	}
 
 	private BigDecimal calcularValorProduto(Orcamento orcamento, ItemDoOrcamento itemOrcamento) {
