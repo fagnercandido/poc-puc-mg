@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.poc.pucmg.estoque.modelo.ItemDoOrcamento;
+import com.poc.pucmg.estoque.modelo.Orcamento;
 import com.poc.pucmg.estoque.modelo.Produto;
 import com.poc.pucmg.estoque.servicos.EstoqueService;
 
@@ -36,6 +38,12 @@ public class EstoqueController {
     @ResponseBody
     public Produto salvar(@RequestBody Produto produto) {
         return estoqueService.salvar(produto);
+    }
+    
+    @RequestMapping(value = "/estoque/orcamento", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+    @ResponseBody
+    public Orcamento solicitarOrcamento(@RequestBody List<ItemDoOrcamento> itensOrcamento) {
+        return estoqueService.solicitarOrcamento(itensOrcamento);
     }
 
     @RequestMapping(value = "/estoque/", method = RequestMethod.PUT, produces = "application/json", consumes = "application/json")
