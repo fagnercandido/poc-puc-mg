@@ -18,4 +18,7 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 	List<Produto> findAllWithDataVencimentoAndNotActive(@Param("dataVencimento") Date dataVencimento,
 			@Param("situacaoProduto") SituacaoProduto situacaoProduto);
 
+	@Query("select p from Produto p where p.situacaoProduto = :situacaoProduto")
+	List<Produto> findAllDue(@Param("situacaoProduto") SituacaoProduto vencido);
+
 }

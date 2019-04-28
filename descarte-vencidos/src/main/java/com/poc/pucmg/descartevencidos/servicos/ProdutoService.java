@@ -18,11 +18,22 @@ public class ProdutoService {
 	private ProdutoRepository produtoRepository;
 
 	public void avaliarVencimento() {
-		List<Produto> produtos = produtoRepository.findAllWithDataVencimentoAndNotActive(new Date(), SituacaoProduto.ATIVO);
+		List<Produto> produtos = produtoRepository.findAllWithDataVencimentoAndNotActive(new Date(),
+				SituacaoProduto.ATIVO);
 		Iterator<Produto> iteratorProdutos = produtos.iterator();
 		while (iteratorProdutos.hasNext()) {
 			Produto produto = iteratorProdutos.next();
 			produto.setSituacaoProduto(SituacaoProduto.VENCIDO);
+			produtoRepository.save(produto);
+		}
+	}
+
+	public void solicitarRecolhimento() {
+		List<Produto> produtos = produtoRepository.findAllDue(SituacaoProduto.VENCIDO);
+		Iterator<Produto> iteratorProdutos = produtos.iterator();
+		while (iteratorProdutos.hasNext()) {
+			Produto produto = iteratorProdutos.next();
+			produto.setSituacaoProduto(SituacaoProduto.PRONTO_PARA_RECOLHIMENTO);
 			produtoRepository.save(produto);
 		}
 	}
