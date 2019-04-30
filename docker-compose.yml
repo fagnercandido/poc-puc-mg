@@ -1,0 +1,47 @@
+version: '2'
+services:
+  estoque:
+    image: poc-puc-mg-estoque
+    container_name: estoque
+    ports:
+      - 8080:8080
+    build: estoque/
+    depends_on:
+    - poc-postgres
+  vendas:
+    image: poc-puc-mg-vendas
+    container_name: vendas
+    ports:
+      - 8180:8180
+    build: vendas/
+    depends_on:
+    - poc-postgres
+  clientes-especiais:
+    image: poc-puc-mg-clientes-especiais
+    container_name: clientes-especiais
+    ports:
+      - 9180:9180
+    build: clientes-especiais/
+    depends_on:
+    - poc-postgres
+  descarte-vencidos:
+    image: poc-puc-mg-descarte-vencidos
+    container_name: descarte-vencidos
+    ports:
+      - 7180:7180
+    build: descarte-vencidos/
+    depends_on:
+    - poc-postgres
+  poc-postgres:
+    image: postgres
+    volumes:
+     - db-data:/var/lib/postgresql/data
+    ports:
+     - "5432:5432"
+    environment:
+     - POSTGRES_PASSWORD=poc
+     - POSTGRES_USER=poc
+     - POSTGRES_DB=poc_puc
+
+volumes:
+  db-data:
