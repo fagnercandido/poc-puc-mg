@@ -1,4 +1,4 @@
-FROM java:8-jdk-alpine
+FROM openjdk
 
 COPY ./target/clientes-especiais-0.0.1.jar /usr/app/
 

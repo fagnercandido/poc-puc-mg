@@ -1,4 +1,4 @@
-FROM java:8-jdk-alpine
+FROM openjdk
 
 COPY ./target/descarte-vencidos-0.0.1-SNAPSHOT.jar /usr/app/
 
